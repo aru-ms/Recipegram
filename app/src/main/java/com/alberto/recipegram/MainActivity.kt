@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.alberto.recipegram.ui.theme.RSRecetasTheme
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import kotlin.properties.Delegates
 
 class MainActivity : ComponentActivity() {
@@ -56,21 +57,34 @@ class MainActivity : ComponentActivity() {
         password = etPassword.text.toString()
         if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
             mProgressBar.visibility = View.VISIBLE
-
-            // Iniciamos sesión en FireBase
-            mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this) {
-                task ->
-                // Si el login es correcto, vamos a la pantalla principal
-                if (task.isSuccessful) {
-                    goHome()
-                } else {
-                    // Si no, avisamos al usuario de que el login es incorrecto
-                    Toast.makeText(this, "El correo o la contraseña no son correctos", Toast.LENGTH_SHORT).show()
-                }
-            }
-        } else {
-            Toast.makeText(this, "El correo o la contraseña están vacíos", Toast.LENGTH_SHORT).show()
-        }
+                // Iniciamos sesión en FireBase
+                mAuth.signInWithEmailAndPassword(email, password)
+                    .addOnSuccessListener(this) {
+                        val user = FirebaseAuth.getInstance().currentUser
+                        if (user!!.isEmailVerified) {
+                            goHome()
+                        } else {
+                            Toast.makeText(this,"Necesitas verificar tu correo", Toast.LENGTH_SHORT).show()
+                        }
+                    /*task ->
+                        // Si el login es correcto, vamos a la pantalla principal
+                        if (task.isSuccessful) {
+                            goHome()
+                        } else {
+                            // Si no, avisamos al usuario de que el login es incorrecto
+                            Toast.makeText(
+                                this,
+                                "El correo o la contraseña no son correctos",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+            } else {
+                Toast.makeText(this, "El correo o la contraseña están vacíos", Toast.LENGTH_SHORT)
+                    .show()
+            */}.addOnFailureListener(this) {
+                        Toast.makeText(this, "El correo o la contraseña no son correctos", Toast.LENGTH_SHORT).show()
+                    }}
     }
 
     private fun goHome() {
@@ -90,21 +104,5 @@ class MainActivity : ComponentActivity() {
 
     fun signUp(view: View) {
         startActivity(Intent(this, SignUpActivity::class.java))
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    RSRecetasTheme {
-        Greeting("Android")
     }
 }
