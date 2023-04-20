@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/txtName"
+        style="@style/vistaCustom"
+        android:hint="@string/firstName"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/txtLastName"
+        style="@style/vistaCustom"
+        android:hint="@string/lastName"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/txtEmail"
+        style="@style/vistaCustom"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress" />
+
+    <EditText
+        android:id="@+id/txtPassword"
+        style="@style/vistaCustom"
+        android:hint="@string/password"
+        android:inputType="textPassword" />
+
+    <Button
+        style="@style/vistaCustom"
+        android:onClick="signUp"
+        android:background="@color/brightOrange"
+        android:text="@string/signUp"
+        android:textColor="@color/newWhite"
+        android:textStyle="bold"/>
+</LinearLayout>

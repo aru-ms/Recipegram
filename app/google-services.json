@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "749896812822",
+    "project_id": "recipegram-d8688",
+    "storage_bucket": "recipegram-d8688.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:749896812822:android:3ba39c900d6e3d7d376837",
+        "android_client_info": {
+          "package_name": "com.alberto.recipegram"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "749896812822-hked05q1jacrrf2grvf1shhvqf9ldg6i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.alberto.recipegram",
+            "certificate_hash": "4445a0f6a5a87bd5966fafa41591fe985c5d0341"
+          }
+        },
+        {
+          "client_id": "749896812822-vm3c6g71l2umeicttt7r13rqhugsb2bu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQCv0OGfKzYzh8IfAKPI76igpkAMWotfc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "749896812822-vm3c6g71l2umeicttt7r13rqhugsb2bu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

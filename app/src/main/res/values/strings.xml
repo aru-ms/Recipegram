@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">RecipeGram</string>
+    <string name="email">Correo</string>
+    <string name="password">Contraseña</string>
+    <string name="forgotPass">¿Olvidaste tu contraseña?</string>
+    <string name="firstName">Nombre</string>
+    <string name="lastName">Apellido</string>
+    <string name="login">Iniciar sesión</string>
+    <string name="signUp">Registrarse</string>
+    <string name="sendPass">Enviar contraseña</string>
+</resources>

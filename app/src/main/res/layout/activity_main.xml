@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        style="@style/vistaCustom"
+        android:src="@drawable/baseline_fastfood_24"/>
+    
+    <EditText
+        android:id="@+id/etEmail"
+        style="@style/vistaCustom"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress"/>
+    
+    <EditText
+        android:id="@+id/etPassword"
+        style="@style/vistaCustom"
+        android:hint="@string/password"
+        android:inputType="textPassword"/>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="215dp"
+        android:background="?android:attr/listDivider"
+        android:backgroundTint="@color/newWhite"/>
+
+    <Button
+        android:id="@+id/btnLogin"
+        style="@style/vistaCustom"
+        android:background="@color/brightOrange"
+        android:text="@string/login"
+        android:textColor="@color/newWhite"
+        android:textStyle="bold"
+        android:onClick="login"/>
+    <Button
+        android:id="@+id/btnSignUp"
+        style="@style/vistaCustom"
+        android:background="@color/brightOrange"
+        android:text="@string/signUp"
+        android:textColor="@color/newWhite"
+        android:textStyle="bold"
+        android:onClick="signUp"/>
+    <TextView
+        android:id="@+id/forgotPass"
+        style="@style/vistaCustom"
+        android:onClick="forgotPassword"
+        android:gravity="center_horizontal"
+        android:text="@string/forgotPass"
+        android:textSize="20sp"/>
+</LinearLayout>
