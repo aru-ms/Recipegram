@@ -7,9 +7,10 @@ import android.text.TextUtils
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.activity.ComponentActivity
 import com.google.firebase.auth.FirebaseAuth
 
-class ForgotPasswordActivity : AppCompatActivity() {
+class ForgotPasswordActivity : ComponentActivity() {
 
     private var etEmail: EditText? = null
     private var btnSend: Button? = null

@@ -8,13 +8,14 @@ import android.view.View
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.activity.ComponentActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import kotlin.properties.Delegates
 
-class SignUpActivity : AppCompatActivity() {
+class SignUpActivity : ComponentActivity() {
 
     private lateinit var txtName: EditText
     private lateinit var txtLastName: EditText

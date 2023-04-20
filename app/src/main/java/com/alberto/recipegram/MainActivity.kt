@@ -62,7 +62,7 @@ class MainActivity : ComponentActivity() {
                 task ->
                 // Si el login es correcto, vamos a la pantalla principal
                 if (task.isSuccessful) {
-                   // goHome()
+                    goHome()
                 } else {
                     // Si no, avisamos al usuario de que el login es incorrecto
                     Toast.makeText(this, "El correo o la contraseña no son correctos", Toast.LENGTH_SHORT).show()
