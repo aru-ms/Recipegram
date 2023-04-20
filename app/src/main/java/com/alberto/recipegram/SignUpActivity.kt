@@ -76,10 +76,12 @@ class SignUpActivity : ComponentActivity() {
                 currentUserDb.child("nombre").setValue(firstName)
                 currentUserDb.child("apellido").setValue(lastName)
                 // Accedemos a la vista principal
-                goHomePage()
             }.addOnFailureListener{
                 // Si el registro falla enviamos un mensaje al usuario
                 Toast.makeText(this, "Error al crear el usuario", Toast.LENGTH_SHORT).show()
+            }.addOnSuccessListener {
+                Toast.makeText(this, "Verifique su registro en el correo", Toast.LENGTH_SHORT).show()
+                goMain()
             }
         } else {
             // Avisamos al usuario de que hay campos vacíos
@@ -91,8 +93,8 @@ class SignUpActivity : ComponentActivity() {
         createNewAccount()
     }
 
-    private fun goHomePage() {
-        val intent = Intent(this, HomeActivity::class.java)
+    private fun goMain() {
+        val intent = Intent(this, MainActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         startActivity(intent)
         // Ocultamos la progressBar
@@ -104,7 +106,7 @@ class SignUpActivity : ComponentActivity() {
             // Verificamos que la tarea se realizó correctamente
             task ->
             if (task.isSuccessful) {
-                Toast.makeText(this, "Email " + user.email, Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Email " + email, Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(this, "Error al verificar el correo", Toast.LENGTH_SHORT).show()
             }
