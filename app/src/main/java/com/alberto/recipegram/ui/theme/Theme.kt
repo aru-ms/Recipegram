@@ -5,10 +5,13 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.MaterialTheme.shapes
 import androidx.compose.material.MaterialTheme.typography
+import androidx.compose.material.ProvideTextStyle
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.text.TextStyle
 
 @SuppressLint("ConflictingOnColor")
 private val DarkColorScheme = darkColors(
@@ -16,13 +19,14 @@ private val DarkColorScheme = darkColors(
     primary = BrightOrange,
     onPrimary = White,
     secondary = BrightOrange,
-    surface = Black,
+    surface = White,
+    onBackground = White
 )
 
 @SuppressLint("ConflictingOnColor")
 private val LightColorScheme = lightColors(
     background = White,
-    onBackground = White,
+    onBackground = Black,
     primary = BrightOrange,
     onPrimary = White,
     secondary = BrightOrange,
@@ -48,10 +52,18 @@ fun RSRecetasTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composa
         LightColorScheme
     }
 
+    val textFieldColor = TextFieldDefaults.textFieldColors(
+        textColor = MaterialTheme.colors.onBackground
+    )
+
     MaterialTheme(
         colors = colors,
         typography = typography,
         shapes = shapes,
-        content = content
+        content = {
+            ProvideTextStyle(value = TextStyle(color = colors.onBackground)) {
+                content()
+            }
+        }
     )
 }
