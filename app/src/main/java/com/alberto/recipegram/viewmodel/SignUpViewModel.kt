@@ -1,12 +1,23 @@
 package com.alberto.recipegram.viewmodel
 
+import android.app.Application
+import android.content.Context
+import android.content.Intent
+import android.widget.Toast
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.ViewModel
+import com.alberto.recipegram.MainActivity
 import com.google.firebase.auth.FirebaseAuth
+import dagger.hilt.android.internal.Contexts.getApplication
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class SignUpViewModel @Inject constructor(private val auth: FirebaseAuth) : ViewModel() {
+class SignUpViewModel @Inject constructor(private val auth: FirebaseAuth, private val context: Context) : ViewModel() {
+
+
     private val _firstName = mutableStateOf("")
     val firstName: State<String> = _firstName
 
@@ -62,25 +73,25 @@ class SignUpViewModel @Inject constructor(private val auth: FirebaseAuth) : View
                         val user = auth.currentUser
                         user?.sendEmailVerification()?.addOnCompleteListener { verificationTask ->
                             if (verificationTask.isSuccessful) {
-                                Toast.makeText(getApplication(), "Verify your email with the received link", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(context, "Verify your email with the received link", Toast.LENGTH_SHORT).show()
                                 goMain()
                             } else {
-                                Toast.makeText(getApplication(), "Error verifying email", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(context, "Error verifying email", Toast.LENGTH_SHORT).show()
                             }
                         }
                     } else {
-                        Toast.makeText(getApplication(), "Error creating user", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "Error creating user", Toast.LENGTH_SHORT).show()
                     }
                     _progressBarVisible.value = false
                 }
         } else {
-            Toast.makeText(getApplication(), "Fill in all the fields or the passwords do not match", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Fill in all the fields or the passwords do not match", Toast.LENGTH_SHORT).show()
         }
     }
 
     private fun goMain() {
-        val intent = Intent(getApplication(), MainActivity::class.java)
+        val intent = Intent(context, MainActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        getApplication<Application>().startActivity(intent)
+        context.startActivity(intent)
     }
 }
