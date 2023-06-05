@@ -15,6 +15,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -42,50 +43,58 @@ class MainActivity : ComponentActivity() {
         val context = LocalContext.current
         var email by remember { mutableStateOf("") }
         var password by remember { mutableStateOf("") }
-        Column(
+        Box(
             modifier = Modifier
                 .fillMaxSize()
+                .systemBarsPadding()
                 .background(colors.background),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            OutlinedTextField(
-                value = email,
-                onValueChange = { email = it },
-                label = { Text("Email") },
-                keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Email,
-                    imeAction = ImeAction.Next
-                ),
-                modifier = Modifier.padding(16.dp),
-                colors = TextFieldDefaults.outlinedTextFieldColors(
-                    //textColor = Color.White
+        ) {// Adjust system window insets
+
+
+            Column(
+                modifier = Modifier
+                    .fillMaxSize(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                OutlinedTextField(
+                    value = email,
+                    onValueChange = { email = it },
+                    label = { Text("Email") },
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Email,
+                        imeAction = ImeAction.Next
+                    ),
+                    modifier = Modifier.padding(16.dp),
+                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                        //textColor = Color.White
+                    )
                 )
-            )
-            OutlinedTextField(
-                value = password,
-                onValueChange = { password = it },
-                label = { Text("Password") },
-                visualTransformation = PasswordVisualTransformation(),
-                modifier = Modifier.padding(16.dp)
-            )
-            Button(
-                onClick = { loginUser(context, email, password) },
-                modifier = Modifier.padding(16.dp),
-            ) {
-                Text(text = "Login")
-            }
-            TextButton(
-                onClick = { signUp(context) },
-                modifier = Modifier.padding(16.dp)
-            ) {
-                Text(text = "Sign Up")
-            }
-            TextButton(
-                onClick = { forgotPassword(context) },
-                modifier = Modifier.padding(16.dp)
-            ) {
-                Text(text = "Forgot Password")
+                OutlinedTextField(
+                    value = password,
+                    onValueChange = { password = it },
+                    label = { Text("Password") },
+                    visualTransformation = PasswordVisualTransformation(),
+                    modifier = Modifier.padding(16.dp)
+                )
+                Button(
+                    onClick = { loginUser(context, email, password) },
+                    modifier = Modifier.padding(16.dp),
+                ) {
+                    Text(text = "Login")
+                }
+                TextButton(
+                    onClick = { signUp(context) },
+                    modifier = Modifier.padding(16.dp)
+                ) {
+                    Text(text = "Sign Up")
+                }
+                TextButton(
+                    onClick = { forgotPassword(context) },
+                    modifier = Modifier.padding(16.dp)
+                ) {
+                    Text(text = "Forgot Password")
+                }
             }
         }
     }

@@ -46,7 +46,7 @@ class SignUpActivity : ComponentActivity() {
         databaseReference = FirebaseDatabase.getInstance().reference.child("Usuarios")
 
         setContent {
-            RSRecetasTheme() {
+            RSRecetasTheme {
                 SignUpScreen()
             }
         }
@@ -60,8 +60,6 @@ class SignUpActivity : ComponentActivity() {
         val password = remember { mutableStateOf("") }
         val confirmPassword = remember { mutableStateOf("") }
 
-
-        Surface(modifier = Modifier.fillMaxSize()) {
             Column(
                 modifier = Modifier
                     .padding(16.dp)
@@ -113,7 +111,6 @@ class SignUpActivity : ComponentActivity() {
                 }
             }
         }
-    }
 
     private fun createNewAccount(firstName: String, lastName: String, email: String, password: String, confirmPassword: String) {
         if (firstName.isNotEmpty() && lastName.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty() && password == confirmPassword) {
