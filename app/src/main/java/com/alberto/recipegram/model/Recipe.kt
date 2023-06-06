@@ -1,4 +1,4 @@
-package com.alberto.recipegram
+package com.alberto.recipegram.model
 
 data class Recipe(
     var title: String?= "",
