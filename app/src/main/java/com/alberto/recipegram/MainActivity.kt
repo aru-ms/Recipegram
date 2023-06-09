@@ -3,99 +3,44 @@ package com.alberto.recipegram
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.*
-import androidx.compose.material.MaterialTheme.colors
-import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.toArgb
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.unit.dp
-import com.alberto.recipegram.ui.theme.RSRecetasTheme
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         auth = FirebaseAuth.getInstance()
-        setContent {
-            RSRecetasTheme {
-                LoginScreen()
-            }
-        }
+        setContentView(R.layout.activity_main)
+        setupViews()
     }
 
-    @Composable
-    fun LoginScreen() {
-        val context = LocalContext.current
-        var email by remember { mutableStateOf("") }
-        var password by remember { mutableStateOf("") }
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .systemBarsPadding()
-                .background(colors.background),
-        ) {// Adjust system window insets
+    private fun setupViews() {
+        val context: Context = this
+        val emailEditText: EditText = findViewById(R.id.emailEditText)
+        val passwordEditText: EditText = findViewById(R.id.passwordEditText)
+        val loginButton: Button = findViewById(R.id.loginButton)
+        val signUpButton: Button = findViewById(R.id.signUpButton)
+        val forgotPasswordButton: Button = findViewById(R.id.forgotPasswordButton)
 
+        loginButton.setOnClickListener {
+            val email = emailEditText.text.toString().trim()
+            val password = passwordEditText.text.toString().trim()
 
-            Column(
-                modifier = Modifier
-                    .fillMaxSize(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                OutlinedTextField(
-                    value = email,
-                    onValueChange = { email = it },
-                    label = { Text("Email") },
-                    keyboardOptions = KeyboardOptions(
-                        keyboardType = KeyboardType.Email,
-                        imeAction = ImeAction.Next
-                    ),
-                    modifier = Modifier.padding(16.dp),
-                    colors = TextFieldDefaults.outlinedTextFieldColors(
-                        //textColor = Color.White
-                    )
-                )
-                OutlinedTextField(
-                    value = password,
-                    onValueChange = { password = it },
-                    label = { Text("Password") },
-                    visualTransformation = PasswordVisualTransformation(),
-                    modifier = Modifier.padding(16.dp)
-                )
-                Button(
-                    onClick = { loginUser(context, email, password) },
-                    modifier = Modifier.padding(16.dp),
-                ) {
-                    Text(text = "Login")
-                }
-                TextButton(
-                    onClick = { signUp(context) },
-                    modifier = Modifier.padding(16.dp)
-                ) {
-                    Text(text = "Sign Up")
-                }
-                TextButton(
-                    onClick = { forgotPassword(context) },
-                    modifier = Modifier.padding(16.dp)
-                ) {
-                    Text(text = "Forgot Password")
-                }
-            }
+            loginUser(context, email, password)
+        }
+
+        signUpButton.setOnClickListener {
+            signUp(context)
+        }
+
+        forgotPasswordButton.setOnClickListener {
+            forgotPassword(context)
         }
     }
 

@@ -1,53 +1,41 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".MainActivity">
 
-    <ImageView
-        style="@style/vistaCustom"
-        android:src="@drawable/baseline_fastfood_24"/>
-    
     <EditText
-        android:id="@+id/etEmail"
-        style="@style/vistaCustom"
-        android:hint="@string/email"
-        android:inputType="textEmailAddress"/>
-    
-    <EditText
-        android:id="@+id/etPassword"
-        style="@style/vistaCustom"
-        android:hint="@string/password"
-        android:inputType="textPassword"/>
-
-    <View
-        android:id="@+id/divider"
+        android:id="@+id/emailEditText"
         android:layout_width="match_parent"
-        android:layout_height="215dp"
-        android:background="?android:attr/listDivider"
-        android:backgroundTint="@color/newWhite"/>
+        android:layout_height="wrap_content"
+        android:hint="Email"
+        android:inputType="textEmailAddress" />
+
+    <EditText
+        android:id="@+id/passwordEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Password"
+        android:inputType="textPassword" />
 
     <Button
-        android:id="@+id/btnLogin"
-        style="@style/vistaCustom"
-        android:background="@color/brightOrange"
-        android:text="@string/login"
-        android:textColor="@color/newWhite"
-        android:textStyle="bold"
-        android:onClick="login"/>
+        android:id="@+id/loginButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Login" />
+
     <Button
-        android:id="@+id/btnSignUp"
-        style="@style/vistaCustom"
-        android:background="@color/brightOrange"
-        android:text="@string/signUp"
-        android:textColor="@color/newWhite"
-        android:textStyle="bold"
-        android:onClick="signUp"/>
-    <TextView
-        android:id="@+id/forgotPass"
-        style="@style/vistaCustom"
-        android:onClick="forgotPassword"
-        android:gravity="center_horizontal"
-        android:text="@string/forgotPass"
-        android:textSize="20sp"/>
+        android:id="@+id/signUpButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sign Up" />
+
+    <Button
+        android:id="@+id/forgotPasswordButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Forgot Password" />
+
 </LinearLayout>

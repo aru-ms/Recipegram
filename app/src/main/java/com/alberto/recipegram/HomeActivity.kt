@@ -1,103 +1,45 @@
 package com.alberto.recipegram
 
 import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
-import androidx.compose.ui.Modifier
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.*
-import com.alberto.recipegram.ui.theme.RSRecetasTheme
-import androidx.compose.material.BottomNavigationItem
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AddCircle
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.Search
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
+import androidx.navigation.fragment.NavHostFragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class HomeActivity : ComponentActivity() {
+class HomeActivity : AppCompatActivity() {
+    private lateinit var navController: NavController
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-            RSRecetasTheme {
-                HomeScreen()
-            }
-        }
+        setContentView(R.layout.activity_home)
+
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        navController = navHostFragment.navController
+        setupBottomNavigation()
     }
-}
 
-@Composable
-fun HomeScreen() {
-    val navController = rememberNavController()
-
-    Scaffold(
-        bottomBar = {
-            BottomNavigation {
-                val navBackStackEntry by navController.currentBackStackEntryAsState()
-                val currentRoute = navBackStackEntry?.destination?.route
-
-                BottomNavigationItem(
-                    icon = { Icon(Icons.Filled.Home, contentDescription = "Home") },
-                    label = { Text("Home") },
-                    selected = currentRoute == "home",
-                    onClick = {
-                        navController.navigate("home")
-                    }
-                )
-
-                BottomNavigationItem(
-                    icon = { Icon(Icons.Filled.Person, contentDescription = "Profile") },
-                    label = { Text("Profile") },
-                    selected = currentRoute == "profile",
-                    onClick = {
-                        navController.navigate("profile")
-                    }
-                )
-
-                BottomNavigationItem(
-                    icon = { Icon(Icons.Filled.Search, contentDescription = "Search") },
-                    label = { Text("Search") },
-                    selected = currentRoute == "search",
-                    onClick = {
-                        navController.navigate("search")
-                    }
-                )
-
-                BottomNavigationItem(
-                    icon = { Icon(Icons.Filled.AddCircle, contentDescription = "Upload") },
-                    label = { Text("Upload") },
-                    selected = currentRoute == "upload",
-                    onClick = {
-                        navController.navigate("upload")
-                    }
-                )
+    private fun setupBottomNavigation() {
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        bottomNavigationView.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.action_home -> {
+                    navController.navigate(R.id.homeFragment)
+                    true
+                }
+                R.id.action_profile -> {
+                    navController.navigate(R.id.profileFragment)
+                    true
+                }
+                /* R.id.menu_search -> {
+                    navController.navigate(R.id.searchFragment)
+                    true
+                } */
+                R.id.action_upload -> {
+                    navController.navigate(R.id.uploadFragment)
+                    true
+                }
+                else -> false
             }
-        }
-    ) { innerPadding ->
-        NavHost(
-            navController = navController,
-            startDestination = "home",
-            modifier = Modifier.padding(innerPadding)
-        ) {
-            composable("home") { HomeFragment() }
-            composable("profile") { ProfileFragment() }
-            composable("search") { SearchFragment() }
-            composable("upload") { UploadFragment() }
         }
     }
 }

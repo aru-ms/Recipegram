@@ -19,7 +19,7 @@ private val DarkColorScheme = darkColors(
     primary = BrightOrange,
     onPrimary = White,
     secondary = BrightOrange,
-    surface = White,
+    surface = Black,
     onBackground = White
 )
 
