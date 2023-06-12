@@ -13,6 +13,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
@@ -101,36 +102,34 @@ class SignUpActivity : AppCompatActivity() {
                     val userDocRef = firestore.collection("users").document(userId)
 
                     // Create a user object with the necessary data
-                    val userObject = HashMap<String, Any>()
-                    userObject["email"] = email
-                    // Add more fields as needed (e.g., username, profile image URL)
+                    val userObject = hashMapOf<String, Any>(
+                        "email" to email,
+                        "photoURL" to "" // Initialize the photoUrl to an empty string
+                    )
+                    // Add more fields as needed (e.g., username)
 
                     // Save the user object to Firestore
                     userDocRef.set(userObject)
                         .addOnSuccessListener {
                             // Save the profile image to Firestore
-                            saveProfileImageToFirestore(userId, profileImageBytes)
-
-                            // Send email verification
-                            user?.sendEmailVerification()
-                                ?.addOnSuccessListener {
-                                    Toast.makeText(
-                                        this,
-                                        "Sign up successful. Verification email sent",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                    // Redirect to the main activity or any other desired screen
-                                    startActivity(Intent(this, MainActivity::class.java))
-                                    finish()
+                            saveProfileImageToFirestore(userId, profileImageBytes) { photoUrl ->
+                                if (photoUrl != null) {
+                                    // Photo URL saved successfully
+                                    userDocRef.update("photoURL", photoUrl)
+                                        .addOnSuccessListener {
+                                            // Handle success
+                                            sendEmailVerification(user)
+                                        }
+                                        .addOnFailureListener { e ->
+                                            // Handle failure
+                                            Toast.makeText(this, "Failed to save profile image URL", Toast.LENGTH_SHORT).show()
+                                            Log.e(TAG, "Failed to save profile image URL to Firestore", e)
+                                        }
+                                } else {
+                                    // Failed to save the photo URL
+                                    Toast.makeText(this, "Failed to save profile image", Toast.LENGTH_SHORT).show()
                                 }
-                                ?.addOnFailureListener { e ->
-                                    Toast.makeText(
-                                        this,
-                                        "Failed to send verification email",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                    Log.e(TAG, "Failed to send verification email", e)
-                                }
+                            }
                         }
                         .addOnFailureListener { e ->
                             Toast.makeText(this, "Failed to save user data", Toast.LENGTH_SHORT).show()
@@ -143,7 +142,7 @@ class SignUpActivity : AppCompatActivity() {
             }
     }
 
-    private fun saveProfileImageToFirestore(userId: String, imageBytes: ByteArray) {
+    private fun saveProfileImageToFirestore(userId: String, imageBytes: ByteArray, completion: (String?) -> Unit) {
         val storageRef = FirebaseStorage.getInstance().reference
 
         // Create a unique file name for the profile image
@@ -151,31 +150,59 @@ class SignUpActivity : AppCompatActivity() {
 
         // Upload the image bytes to Firebase Storage
         profileImageRef.putBytes(imageBytes)
-            .addOnSuccessListener { taskSnapshot ->
+            .addOnSuccessListener { _ ->
                 // Get the download URL of the uploaded image
                 profileImageRef.downloadUrl
                     .addOnSuccessListener { uri ->
-                        // Save the image URL to the user document in Firestore
+                        val photoUrl = uri.toString()
+
+                        // Save the photoUrl to Firestore
                         val userRef = firestore.collection("users").document(userId)
-                        userRef.update("profileImageUrl", uri.toString())
+                        userRef.update("photoUrl", photoUrl)
                             .addOnSuccessListener {
-                                Log.d(TAG, "Profile image saved to Firestore")
+                                Log.d(TAG, "Profile image URL saved to Firestore")
+                                completion(photoUrl) // Pass the photoUrl to the completion callback
                             }
                             .addOnFailureListener { e ->
                                 Log.e(TAG, "Failed to save profile image URL to Firestore", e)
+                                completion(null) // Notify the caller with null if there's an error
                             }
                     }
                     .addOnFailureListener { e ->
                         Log.e(TAG, "Failed to get download URL of profile image", e)
+                        completion(null) // Notify the caller with null if there's an error
                     }
             }
             .addOnFailureListener { e ->
                 Log.e(TAG, "Failed to upload profile image to Firebase Storage", e)
+                completion(null) // Notify the caller with null if there's an error
+            }
+    }
+
+    private fun sendEmailVerification(user: FirebaseUser?) {
+        user?.sendEmailVerification()
+            ?.addOnSuccessListener {
+                Toast.makeText(
+                    this,
+                    "Sign up successful. Verification email sent",
+                    Toast.LENGTH_SHORT
+                ).show()
+                // Redirect to the main activity or any other desired screen
+                startActivity(Intent(this, MainActivity::class.java))
+                finish()
+            }
+            ?.addOnFailureListener { e ->
+                Toast.makeText(
+                    this,
+                    "Failed to send verification email",
+                    Toast.LENGTH_SHORT
+                ).show()
+                Log.e(TAG, "Failed to send verification email", e)
             }
     }
 
     companion object {
-        private const val TAG = "SignUpActivity_Prueba"
+        private const val TAG = "SignUpActivity"
         private const val REQUEST_IMAGE_PICK = 1
     }
 }

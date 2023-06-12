@@ -21,10 +21,6 @@
             android:exported="false"
             android:theme="@style/Theme.RSRecetas"/>
         <activity
-            android:name=".SignUpActivity_Prueba"
-            android:exported="false"
-            android:theme="@style/Theme.RSRecetas"/>
-        <activity
             android:name=".ForgotPasswordActivity"
             android:exported="false"
             android:theme="@style/Theme.RSRecetas"/>
