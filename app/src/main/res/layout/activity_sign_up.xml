@@ -1,44 +1,71 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/txtName"
-        style="@style/vistaCustom"
-        android:hint="@string/firstName"
-        android:inputType="textPersonName" />
+    <ImageView
+        android:id="@+id/profileImageView"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/placeholder"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp" />
+
+    <Button
+        android:id="@+id/selectImageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/profileImageView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="Select Image" />
 
     <EditText
-        android:id="@+id/txtLastName"
-        style="@style/vistaCustom"
-        android:hint="@string/lastName"
-        android:inputType="textPersonName" />
+        android:id="@+id/emailEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/selectImageButton"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="8dp"
+        android:hint="Email" />
 
     <EditText
-        android:id="@+id/txtEmail"
-        style="@style/vistaCustom"
-        android:hint="@string/email"
-        android:inputType="textEmailAddress" />
-
-    <EditText
-        android:id="@+id/txtPassword"
-        style="@style/vistaCustom"
-        android:hint="@string/password"
+        android:id="@+id/passwordEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/emailEditText"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="8dp"
+        android:hint="Password"
         android:inputType="textPassword" />
 
     <EditText
         android:id="@+id/txtConfPassword"
         style="@style/vistaCustom"
+        android:layout_below="@+id/passwordEditText"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="-336dp"
+        android:layout_marginEnd="0dp"
         android:hint="@string/password"
         android:inputType="textPassword" />
 
     <Button
-        style="@style/vistaCustom"
-        android:onClick="signUp"
-        android:background="@color/brightOrange"
-        android:text="@string/signUp"
-        android:textColor="@color/newWhite"
-        android:textStyle="bold"/>
-</LinearLayout>
+        android:id="@+id/signupButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtConfPassword"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="-392dp"
+        android:layout_marginEnd="8dp"
+        android:text="Sign Up" />
+
+</RelativeLayout>

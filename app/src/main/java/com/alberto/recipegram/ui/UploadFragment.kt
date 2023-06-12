@@ -17,7 +17,11 @@ import android.widget.ImageView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
+import java.io.ByteArrayOutputStream
+import java.util.UUID
 
 class UploadFragment : Fragment() {
 
@@ -108,20 +112,55 @@ class UploadFragment : Fragment() {
         val description = descriptionEditText.text.toString().trim()
 
         if (recipeName.isNotEmpty() && ingredients.isNotEmpty() && description.isNotEmpty() && recipeImageBitmap != null) {
-            // Upload recipe to Firestore here
-            // Replace "recipes" with your desired collection name
-            firestore.collection("recipes")
-                .add(mapOf(
-                    "name" to recipeName,
-                    "ingredients" to ingredients,
-                    "description" to description
-                ))
-                .addOnSuccessListener {
-                    Log.d("RecipeUploadFragment", "Recipe uploaded successfully!")
+            val currentUser = FirebaseAuth.getInstance().currentUser
+            val userId = currentUser?.uid
+
+            if (userId != null) {
+                // Generate a unique filename for the image
+                val filename = UUID.randomUUID().toString() + ".jpg"
+
+                // Reference to the image file in Firebase Storage
+                val storageRef = FirebaseStorage.getInstance().reference.child("recipe_images/$filename")
+
+                // Compress the image and upload to Firebase Storage
+                val baos = ByteArrayOutputStream()
+                recipeImageBitmap!!.compress(Bitmap.CompressFormat.JPEG, 90, baos)
+                val imageData = baos.toByteArray()
+                val uploadTask = storageRef.putBytes(imageData)
+
+                uploadTask.continueWithTask { task ->
+                    if (!task.isSuccessful) {
+                        task.exception?.let { throw it }
+                    }
+                    storageRef.downloadUrl
+                }.addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        val downloadUrl = task.result
+
+                        // Create a new recipe document in Firestore
+                        val recipeData = hashMapOf(
+                            "name" to recipeName,
+                            "ingredients" to ingredients,
+                            "description" to description,
+                            "imageUrl" to downloadUrl.toString(),
+                            "userId" to userId
+                        )
+
+                        firestore.collection("recipes")
+                            .add(recipeData)
+                            .addOnSuccessListener { documentReference ->
+                                Log.d("RecipeUploadFragment", "Recipe uploaded successfully! Document ID: ${documentReference.id}")
+                            }
+                            .addOnFailureListener { e ->
+                                Log.e("RecipeUploadFragment", "Recipe upload failed", e)
+                            }
+                    } else {
+                        Log.e("RecipeUploadFragment", "Failed to retrieve download URL for the image")
+                    }
                 }
-                .addOnFailureListener { e ->
-                    Log.e("RecipeUploadFragment", "Recipe upload failed", e)
-                }
+            } else {
+                Log.e("RecipeUploadFragment", "User ID is null")
+            }
         } else {
             Log.d("RecipeUploadFragment", "Please fill in all fields and choose a recipe image")
         }
