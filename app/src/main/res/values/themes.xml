@@ -3,6 +3,7 @@
 
     <style name="Theme.RSRecetas" parent="@style/vistaCustom">
         <!-- Primary brand color. -->
+        <item name="android:windowBackground">@color/newWhite</item>
         <item name="colorPrimary">@color/newWhite</item>
         <item name="colorPrimaryVariant">@color/brightOrange</item>
         <item name="colorOnPrimary">@color/white</item>
@@ -11,5 +12,9 @@
         <item name="colorSecondaryVariant">@color/newWhite</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
+        <item name="android:textColorPrimary">@color/newBlack</item>
+        <item name="android:textColorHint">@color/newBlack</item>
+        <item name="colorControlActivated">@color/brightOrange</item>
+        <item name="colorControlNormal">@color/brightOrange</item>
     </style>
 </resources>
