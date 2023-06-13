@@ -2,14 +2,18 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="Theme.RSRecetas" parent="@style/vistaCustom">
-        <!-- Primary brand color. -->
+        <item name="android:windowBackground">@color/newBlack</item>
         <item name="colorPrimary">@color/newWhite</item>
         <item name="colorPrimaryVariant">@color/brightOrange</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/brightBrown</item>
         <item name="colorSecondaryVariant">@color/newWhite</item>
-        <item name="colorOnSecondary">@color/brightOrange</item>
+        <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
+        <item name="android:textColorPrimary">@color/newWhite</item>
+        <item name="android:textColorHint">@color/newWhite</item>
+        <item name="colorControlActivated">@color/brightOrange</item>
+        <item name="colorControlNormal">@color/brightOrange</item>
     </style>
 </resources>
