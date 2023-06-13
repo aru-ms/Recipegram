@@ -18,6 +18,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import java.io.ByteArrayOutputStream
@@ -143,7 +144,8 @@ class UploadFragment : Fragment() {
                             "ingredients" to ingredients,
                             "description" to description,
                             "imageUrl" to downloadUrl.toString(),
-                            "userId" to userId
+                            "userId" to userId,
+                            "timestamp" to FieldValue.serverTimestamp() // Add timestamp field
                         )
 
                         firestore.collection("recipes")

@@ -26,6 +26,7 @@ class SignUpActivity : AppCompatActivity() {
     private lateinit var emailEditText: EditText
     private lateinit var passwordEditText: EditText
     private lateinit var signUpButton: Button
+    private lateinit var confPasswordEditText: EditText
 
     private lateinit var auth: FirebaseAuth
     private lateinit var firestore: FirebaseFirestore
@@ -44,6 +45,7 @@ class SignUpActivity : AppCompatActivity() {
         emailEditText = findViewById(R.id.emailEditText)
         passwordEditText = findViewById(R.id.passwordEditText)
         signUpButton = findViewById(R.id.signupButton)
+        confPasswordEditText = findViewById(R.id.confPasswordEditText)
 
         selectImageButton.setOnClickListener {
             openGallery()
@@ -76,8 +78,9 @@ class SignUpActivity : AppCompatActivity() {
     private fun signUp() {
         val email = emailEditText.text.toString().trim()
         val password = passwordEditText.text.toString().trim()
+        val confirmPass = confPasswordEditText.text.toString().trim()
 
-        if (email.isEmpty() || password.isEmpty()) {
+        if (email.isEmpty() || password.isEmpty() || confirmPass.isEmpty()) {
             Toast.makeText(this, "Please enter email and password", Toast.LENGTH_SHORT).show()
             return
         }
@@ -85,6 +88,10 @@ class SignUpActivity : AppCompatActivity() {
         if (profileImageBitmap == null) {
             Toast.makeText(this, "Please select a profile image", Toast.LENGTH_SHORT).show()
             return
+        }
+
+        if (!confirmPass.equals(password)) {
+            Toast.makeText(this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show()
         }
 
         // Convert the profile image to a byte array

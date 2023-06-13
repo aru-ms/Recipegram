@@ -21,7 +21,7 @@
         android:textAppearance="?android:textAppearanceMedium" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recipesRecyclerView"
+        android:id="@+id/recipes_profile"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="16dp" />

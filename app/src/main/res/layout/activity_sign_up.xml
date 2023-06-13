@@ -6,9 +6,10 @@
         android:id="@+id/profileImageView"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:src="@drawable/placeholder"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp" />
+        android:layout_marginTop="50dp"
+        android:src="@drawable/placeholder" />
 
     <Button
         android:id="@+id/selectImageButton"
@@ -38,21 +39,19 @@
         android:layout_below="@id/emailEditText"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="26dp"
+        android:layout_marginEnd="0dp"
         android:hint="Password"
         android:inputType="textPassword" />
 
     <EditText
-        android:id="@+id/txtConfPassword"
+        android:id="@+id/confPasswordEditText"
         style="@style/vistaCustom"
         android:layout_below="@+id/passwordEditText"
         android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="-336dp"
-        android:layout_marginEnd="0dp"
+        android:layout_marginStart="-2dp"
+        android:layout_marginTop="33dp"
         android:hint="@string/password"
         android:inputType="textPassword" />
 
@@ -60,12 +59,12 @@
         android:id="@+id/signupButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/txtConfPassword"
+        android:layout_below="@+id/confPasswordEditText"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="-392dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="45dp"
+        android:layout_marginEnd="0dp"
         android:text="Sign Up" />
 
 </RelativeLayout>
