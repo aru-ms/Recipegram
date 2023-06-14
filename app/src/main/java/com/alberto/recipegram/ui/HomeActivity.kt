@@ -30,10 +30,10 @@ class HomeActivity : AppCompatActivity() {
                     navController.navigate(R.id.profileFragment)
                     true
                 }
-                /* R.id.menu_search -> {
+                 R.id.action_search -> {
                     navController.navigate(R.id.searchFragment)
                     true
-                } */
+                }
                 R.id.action_upload -> {
                     navController.navigate(R.id.uploadFragment)
                     true

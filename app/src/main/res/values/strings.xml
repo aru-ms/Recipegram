@@ -8,4 +8,5 @@
     <string name="login">Iniciar sesión</string>
     <string name="signUp">Registrarse</string>
     <string name="sendPass">Enviar contraseña</string>
+    <string name="search_string">Busca por nombre o ingredientes</string>
 </resources>

@@ -11,5 +11,9 @@
         android:id="@+id/action_upload"
         android:title="Upload"
         android:icon="@drawable/baseline_fastfood_24" />
+    <item
+        android:id="@+id/action_search"
+        android:title="Search"
+        android:icon="@drawable/ic_search"/>
     <!-- Add more items for other bottom navigation destinations -->
 </menu>

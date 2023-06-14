@@ -17,11 +17,11 @@
         android:label="Profile"
         tools:layout="@layout/fragment_profile" />
 
-    <!--<fragment
+    <fragment
         android:id="@+id/searchFragment"
-        android:name="com.example.app.SearchFragment"
+        android:name="com.alberto.recipegram.SearchFragment"
         android:label="Search"
-        tools:layout="@layout/fragment_search" /> -->
+        tools:layout="@layout/fragment_search" />
 
     <fragment
         android:id="@+id/uploadFragment"
