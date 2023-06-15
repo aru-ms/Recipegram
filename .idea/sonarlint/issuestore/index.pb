@@ -3,3 +3,17 @@
 app/build.gradle,f\4\f4a01d6a4fcb971362ec00a83903fd3902f52164
 h
 8app/src/main/java/com/alberto/recipegram/model/Recipe.kt,6\5\65a8fe4db9cdf67f382090c9b32e01dd556864b9
+u
+Eapp/src/main/java/com/alberto/recipegram/ui/ForgotPasswordActivity.kt,1\2\12d0138dbcacd0cf6eaa7cc5967b9b5e39bd79ba
+}
+Mapp/src/main/java/com/alberto/recipegram/viewmodel/ForgotPasswordViewModel.kt,5\5\55d5e78bfb11e55f71bdf0e6a7500d26617025dd
+k
+;app/src/main/java/com/alberto/recipegram/ui/MainActivity.kt,e\d\edac6c8562af6b9a865f74380af91a111f35bc8f
+s
+Capp/src/main/java/com/alberto/recipegram/viewmodel/MainViewModel.kt,2\2\2292b630a76b8d88a6cfed7573bfa3594b9429a3
+u
+Eapp/src/main/java/com/alberto/recipegram/viewmodel/SearchViewModel.kt,f\4\f4c72e493dd4cbda38ef746da6b666a53b816fd1
+m
+=app/src/main/java/com/alberto/recipegram/ui/UploadFragment.kt,d\4\d45490dcd0d10b360627a8fe030f73f40c032cfe
+u
+Eapp/src/main/java/com/alberto/recipegram/viewmodel/UploadViewModel.kt,4\e\4e2e61ff83b9f100af12f338dcb8433f5396b016

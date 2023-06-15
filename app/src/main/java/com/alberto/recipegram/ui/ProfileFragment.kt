@@ -19,7 +19,7 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop
 class ProfileFragment : Fragment() {
 
     private lateinit var profileImageView: ImageView
-    private lateinit var emailTextView: TextView
+    private lateinit var usernameTextView: TextView
     private lateinit var recipesRecyclerView: RecyclerView
     private lateinit var recipesAdapter: RecipeAdapter
 
@@ -33,7 +33,7 @@ class ProfileFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_profile, container, false)
 
         profileImageView = view.findViewById(R.id.profileImageView)
-        emailTextView = view.findViewById(R.id.emailTextView)
+        usernameTextView = view.findViewById(R.id.emailTextView)
         recipesRecyclerView = view.findViewById(R.id.recipes_profile)
 
         profileViewModel = ViewModelProvider(this)[ProfileViewModel::class.java]
@@ -47,8 +47,8 @@ class ProfileFragment : Fragment() {
                 .into(profileImageView)
         }
 
-        profileViewModel.userEmail.observe(viewLifecycleOwner) { userEmail ->
-            emailTextView.text = userEmail
+        profileViewModel.userUsername.observe(viewLifecycleOwner) { username ->
+            usernameTextView.text = username
         }
 
         profileViewModel.recipes.observe(viewLifecycleOwner) { recipes ->

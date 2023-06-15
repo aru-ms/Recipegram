@@ -77,8 +77,8 @@ class RecipeAdapter(private var recipeList: List<Recipe>, private val isProfileF
             descriptionTextView.text = recipe.description
 
             // Retrieve the user email using the userId from Firestore
-            retrieveUserEmail(userId) { userEmail ->
-                userTextView.text = userEmail
+            retrieveUserName(userId) { userUsername ->
+                userTextView.text = userUsername
             }
 
             val usersCollection = FirebaseFirestore.getInstance().collection("users")
@@ -93,16 +93,16 @@ class RecipeAdapter(private var recipeList: List<Recipe>, private val isProfileF
             }
         }
 
-        private fun retrieveUserEmail(userId: String, callback: (String) -> Unit) {
+        private fun retrieveUserName(userId: String, callback: (String) -> Unit) {
             val db = FirebaseFirestore.getInstance()
             val userRef = db.collection("users").document(userId)
 
             userRef.get()
                 .addOnSuccessListener { document ->
                     if (document != null && document.exists()) {
-                        val userEmail = document.getString("email")
-                        if (!userEmail.isNullOrBlank()) {
-                            callback(userEmail)
+                        val userUsername = document.getString("username")
+                        if (!userUsername.isNullOrBlank()) {
+                            callback(userUsername)
                         }
                     }
                 }

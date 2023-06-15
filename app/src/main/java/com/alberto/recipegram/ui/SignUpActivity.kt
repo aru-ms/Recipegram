@@ -23,6 +23,7 @@ class SignUpActivity : AppCompatActivity() {
     private lateinit var passwordEditText: EditText
     private lateinit var signUpButton: Button
     private lateinit var confPasswordEditText: EditText
+    private lateinit var usernameEditText: EditText
 
     private lateinit var viewModel: SignUpViewModel
 
@@ -40,16 +41,18 @@ class SignUpActivity : AppCompatActivity() {
         passwordEditText = findViewById(R.id.passwordEditText)
         signUpButton = findViewById(R.id.signupButton)
         confPasswordEditText = findViewById(R.id.confPasswordEditText)
+        usernameEditText = findViewById(R.id.usernameEditText)
 
         selectImageButton.setOnClickListener {
             openGallery()
         }
 
         signUpButton.setOnClickListener {
+            val username = usernameEditText.text.toString().trim()
             val email = emailEditText.text.toString().trim()
             val password = passwordEditText.text.toString().trim()
             val confirmPass = confPasswordEditText.text.toString().trim()
-            viewModel.signUp(email, password, confirmPass, profileImageBitmap)
+            viewModel.signUp(username, email, password, confirmPass, profileImageBitmap)
         }
 
         viewModel.signUpSuccess.observe(this, Observer { success ->

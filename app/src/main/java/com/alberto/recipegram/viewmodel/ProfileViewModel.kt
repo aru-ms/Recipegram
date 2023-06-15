@@ -18,8 +18,12 @@ class ProfileViewModel : ViewModel() {
         get() = _profileImageUrl
 
     private val _userEmail = MutableLiveData<String>()
+    private val _username = MutableLiveData<String?>()
     val userEmail: LiveData<String>
         get() = _userEmail
+
+    val userUsername: MutableLiveData<String?>
+        get() = _username
 
     private val _recipes = MutableLiveData<List<Recipe>>()
     val recipes: LiveData<List<Recipe>>
@@ -39,6 +43,11 @@ class ProfileViewModel : ViewModel() {
             userDocument.get().addOnSuccessListener { documentSnapshot ->
                 val photoUrl = documentSnapshot.getString("photoUrl")
                 _profileImageUrl.value = photoUrl
+            }
+
+            userDocument.get().addOnSuccessListener { documentSnapshot ->
+                val username = documentSnapshot.getString("username")
+                _username.value = username
             }
 
             // Load user email

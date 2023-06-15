@@ -19,8 +19,8 @@ class SignUpViewModel : ViewModel() {
     val signUpSuccess: LiveData<Boolean>
         get() = _signUpSuccess
 
-    fun signUp(email: String, password: String, confirmPass: String, profileImageBitmap: Bitmap?) {
-        if (email.isEmpty() || password.isEmpty() || confirmPass.isEmpty()) {
+    fun signUp(username: String, email: String, password: String, confirmPass: String, profileImageBitmap: Bitmap?) {
+        if (username.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPass.isEmpty()) {
             _signUpSuccess.value = false
             return
         }
@@ -50,7 +50,8 @@ class SignUpViewModel : ViewModel() {
 
                     val userObject = hashMapOf<String, Any>(
                         "email" to email,
-                        "photoURL" to "" // Initialize the photoUrl to an empty string
+                        "photoURL" to "",
+                        "username" to username
                     )
                     // Add more fields as needed (e.g., username)
 
