@@ -1,4 +1,4 @@
-package com.alberto.recipegram
+package com.alberto.recipegram.ui
 
 import android.Manifest
 import android.app.Activity
@@ -17,12 +17,9 @@ import android.widget.ImageView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FieldValue
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.storage.FirebaseStorage
-import java.io.ByteArrayOutputStream
-import java.util.UUID
+import androidx.lifecycle.ViewModelProvider
+import com.alberto.recipegram.R
+import com.alberto.recipegram.viewmodel.UploadViewModel
 
 class UploadFragment : Fragment() {
 
@@ -40,9 +37,7 @@ class UploadFragment : Fragment() {
 
     private var recipeImageBitmap: Bitmap? = null
 
-    private val firestore: FirebaseFirestore by lazy {
-        FirebaseFirestore.getInstance()
-    }
+    private lateinit var uploadViewModel: UploadViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_upload, container, false)
@@ -54,6 +49,8 @@ class UploadFragment : Fragment() {
         ingredientsEditText = view.findViewById(R.id.ingredientsEditText)
         descriptionEditText = view.findViewById(R.id.descriptionEditText)
         uploadButton = view.findViewById(R.id.uploadButton)
+
+        uploadViewModel = ViewModelProvider(this)[UploadViewModel::class.java]
 
         galleryButton.setOnClickListener {
             openGallery()
@@ -76,10 +73,18 @@ class UploadFragment : Fragment() {
     }
 
     private fun checkCameraPermission() {
-        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.CAMERA
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
             openCamera()
         } else {
-            ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.CAMERA), CAMERA_PERMISSION_REQUEST_CODE)
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                arrayOf(Manifest.permission.CAMERA),
+                CAMERA_PERMISSION_REQUEST_CODE
+            )
         }
     }
 
@@ -94,7 +99,8 @@ class UploadFragment : Fragment() {
             when (requestCode) {
                 REQUEST_IMAGE_PICK -> {
                     data?.data?.let { uri ->
-                        recipeImageBitmap = MediaStore.Images.Media.getBitmap(requireContext().contentResolver, uri)
+                        recipeImageBitmap =
+                            MediaStore.Images.Media.getBitmap(requireContext().contentResolver, uri)
                         recipeImageView.setImageBitmap(recipeImageBitmap)
                     }
                 }
@@ -112,63 +118,14 @@ class UploadFragment : Fragment() {
         val ingredients = ingredientsEditText.text.toString().trim()
         val description = descriptionEditText.text.toString().trim()
 
-        if (recipeName.isNotEmpty() && ingredients.isNotEmpty() && description.isNotEmpty() && recipeImageBitmap != null) {
-            val currentUser = FirebaseAuth.getInstance().currentUser
-            val userId = currentUser?.uid
-
-            if (userId != null) {
-                // Generate a unique filename for the image
-                val filename = UUID.randomUUID().toString() + ".jpg"
-
-                // Reference to the image file in Firebase Storage
-                val storageRef = FirebaseStorage.getInstance().reference.child("recipe_images/$filename")
-
-                // Compress the image and upload to Firebase Storage
-                val baos = ByteArrayOutputStream()
-                recipeImageBitmap!!.compress(Bitmap.CompressFormat.JPEG, 90, baos)
-                val imageData = baos.toByteArray()
-                val uploadTask = storageRef.putBytes(imageData)
-
-                uploadTask.continueWithTask { task ->
-                    if (!task.isSuccessful) {
-                        task.exception?.let { throw it }
-                    }
-                    storageRef.downloadUrl
-                }.addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        val downloadUrl = task.result
-
-                        // Create a new recipe document in Firestore
-                        val recipeData = hashMapOf(
-                            "name" to recipeName,
-                            "ingredients" to ingredients,
-                            "description" to description,
-                            "imageUrl" to downloadUrl.toString(),
-                            "userId" to userId,
-                            "timestamp" to FieldValue.serverTimestamp() // Add timestamp field
-                        )
-
-                        firestore.collection("recipes")
-                            .add(recipeData)
-                            .addOnSuccessListener { documentReference ->
-                                Log.d("RecipeUploadFragment", "Recipe uploaded successfully! Document ID: ${documentReference.id}")
-                            }
-                            .addOnFailureListener { e ->
-                                Log.e("RecipeUploadFragment", "Recipe upload failed", e)
-                            }
-                    } else {
-                        Log.e("RecipeUploadFragment", "Failed to retrieve download URL for the image")
-                    }
-                }
-            } else {
-                Log.e("RecipeUploadFragment", "User ID is null")
-            }
-        } else {
-            Log.d("RecipeUploadFragment", "Please fill in all fields and choose a recipe image")
-        }
+        uploadViewModel.uploadRecipe(recipeName, ingredients, description, recipeImageBitmap)
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == CAMERA_PERMISSION_REQUEST_CODE) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {

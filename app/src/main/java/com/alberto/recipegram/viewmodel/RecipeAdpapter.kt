@@ -1,4 +1,4 @@
-package com.alberto.recipegram
+package com.alberto.recipegram.viewmodel
 
 import android.app.AlertDialog
 import android.util.Log
@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.alberto.recipegram.R
 import com.alberto.recipegram.model.Recipe
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop

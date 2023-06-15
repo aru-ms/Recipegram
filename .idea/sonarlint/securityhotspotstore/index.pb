@@ -1,19 +1,5 @@
 
 @
 app/build.gradle,f\4\f4a01d6a4fcb971362ec00a83903fd3902f52164
-t
-Dapp/src/main/java/com/alberto/recipegram/ui/SignUpActivity_Prueba.kt,8\a\8ad110a1d903dd86b5c559c55a5c494ede1ee586
-m
-=app/src/main/java/com/alberto/recipegram/ui/SignUpActivity.kt,6\a\6a1bba530d6fb3ddf29aab8dcd65a9aaf5922e48
-m
-=app/src/main/java/com/alberto/recipegram/ui/UploadFragment.kt,d\4\d45490dcd0d10b360627a8fe030f73f40c032cfe
-n
->app/src/main/java/com/alberto/recipegram/ui/ProfileFragment.kt,4\a\4a10a0646f87c5a70722e140e93e7aed7b8f0e93
-k
-;app/src/main/java/com/alberto/recipegram/ui/HomeFragment.kt,3\e\3efa752cc37cc2f53f76b24094359dce1134761f
-u
-Eapp/src/main/java/com/alberto/recipegram/ui/ForgotPasswordActivity.kt,1\2\12d0138dbcacd0cf6eaa7cc5967b9b5e39bd79ba
-P
- app/src/main/AndroidManifest.xml,8\c\8c55c3ccc257e5907959013f99656e4c8ec3903e
 h
 8app/src/main/java/com/alberto/recipegram/model/Recipe.kt,6\5\65a8fe4db9cdf67f382090c9b32e01dd556864b9

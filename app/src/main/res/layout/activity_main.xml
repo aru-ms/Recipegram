@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context=".MainActivity">
+    tools:context=".ui.MainActivity">
 
     <ImageView
         android:layout_width="wrap_content"
@@ -41,10 +41,14 @@
         android:layout_height="wrap_content"
         android:text="@string/signUp" />
 
-    <Button
-        android:id="@+id/forgotPasswordButton"
+    <TextView
+        android:id="@+id/forgotPasswordTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/forgotPass" />
+        android:text="@string/forgotPass"
+        android:gravity="center"
+        android:padding="16dp"
+        android:textStyle="italic"
+        android:clickable="true"/>
 
 </LinearLayout>

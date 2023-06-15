@@ -1,22 +1,23 @@
-package com.alberto.recipegram
+package com.alberto.recipegram.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.alberto.recipegram.model.Recipe
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
+import com.alberto.recipegram.R
+import com.alberto.recipegram.viewmodel.HomeViewModel
+import com.alberto.recipegram.viewmodel.RecipeAdapter
+
 
 class HomeFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var recipeAdapter: RecipeAdapter
-
-    private val firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
+    private lateinit var homeViewModel: HomeViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
@@ -27,26 +28,17 @@ class HomeFragment : Fragment() {
         recipeAdapter = RecipeAdapter(emptyList(), false)
         recyclerView.adapter = recipeAdapter
 
+        // Initialize HomeViewModel
+        homeViewModel = ViewModelProvider(this)[HomeViewModel::class.java]
+
+        // Observe the recipes LiveData and update the adapter when it changes
+        homeViewModel.recipes.observe(viewLifecycleOwner, { recipes ->
+            recipeAdapter.setRecipes(recipes)
+        })
+
         // Fetch recipe data from Firestore
-        fetchRecipes()
+        homeViewModel.fetchRecipes()
 
         return view
-    }
-
-    private fun fetchRecipes() {
-        firestore.collection("recipes")
-            .orderBy("timestamp", Query.Direction.DESCENDING) // Order by timestamp in descending order
-            .get()
-            .addOnSuccessListener { querySnapshot ->
-                val recipes = mutableListOf<Recipe>()
-                for (document in querySnapshot) {
-                    val recipe = document.toObject(Recipe::class.java)
-                    recipes.add(recipe)
-                }
-                recipeAdapter.setRecipes(recipes)
-            }
-            .addOnFailureListener { e ->
-                // Handle error
-            }
     }
 }

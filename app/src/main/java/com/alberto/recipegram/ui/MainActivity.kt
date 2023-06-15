@@ -1,21 +1,27 @@
-package com.alberto.recipegram
+package com.alberto.recipegram.ui
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
+import com.alberto.recipegram.R
+import com.alberto.recipegram.viewmodel.MainViewModel
 import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
+    private lateinit var mainViewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         auth = FirebaseAuth.getInstance()
+        mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
         setContentView(R.layout.activity_main)
         setupViews()
     }
@@ -26,38 +32,34 @@ class MainActivity : AppCompatActivity() {
         val passwordEditText: EditText = findViewById(R.id.passwordEditText)
         val loginButton: Button = findViewById(R.id.loginButton)
         val signUpButton: Button = findViewById(R.id.signUpButton)
-        val forgotPasswordButton: Button = findViewById(R.id.forgotPasswordButton)
+        val forgotPasswordTextView: TextView = findViewById(R.id.forgotPasswordTextView)
 
         loginButton.setOnClickListener {
             val email = emailEditText.text.toString().trim()
             val password = passwordEditText.text.toString().trim()
 
-            loginUser(context, email, password)
+            mainViewModel.loginUser(
+                context,
+                email,
+                password,
+                onSuccess = {
+                    goHome(context)
+                },
+                onFailure = {
+                    Toast.makeText(context, "El correo o la contraseña no son correctos", Toast.LENGTH_SHORT).show()
+                },
+                onEmailNotVerified = {
+                    Toast.makeText(context, "Necesitas verificar tu correo", Toast.LENGTH_SHORT).show()
+                }
+            )
         }
 
         signUpButton.setOnClickListener {
             signUp(context)
         }
 
-        forgotPasswordButton.setOnClickListener {
+        forgotPasswordTextView.setOnClickListener {
             forgotPassword(context)
-        }
-    }
-
-    private fun loginUser(context: Context, email: String, password: String) {
-        if (email.isNotBlank() && password.isNotBlank()) {
-            auth.signInWithEmailAndPassword(email, password)
-                .addOnSuccessListener {
-                    val user = FirebaseAuth.getInstance().currentUser
-                    if (user?.isEmailVerified == true) {
-                        goHome(context)
-                    } else {
-                        Toast.makeText(context, "Necesitas verificar tu correo", Toast.LENGTH_SHORT).show()
-                    }
-                }
-                .addOnFailureListener {
-                    Toast.makeText(context, "El correo o la contraseña no son correctos", Toast.LENGTH_SHORT).show()
-                }
         }
     }
 
