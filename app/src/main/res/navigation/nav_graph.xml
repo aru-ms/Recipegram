@@ -29,28 +29,4 @@
         android:label="Upload"
         tools:layout="@layout/fragment_upload" />
 
-    <!-- <action
-        android:id="@+id/action_home_to_profile"
-        app:destination="@id/profileFragment" />
-
-    <action
-        android:id="@+id/action_home_to_search"
-        app:destination="@id/searchFragment" />
-
-    <action
-        android:id="@+id/action_home_to_upload"
-        app:destination="@id/uploadFragment" />
-
-    <action
-        android:id="@+id/action_profile_to_home"
-        app:destination="@id/homeFragment" />
-
-    <action
-        android:id="@+id/action_search_to_home"
-        app:destination="@id/homeFragment" />
-
-    <action
-        android:id="@+id/action_upload_to_home"
-        app:destination="@id/homeFragment" /> -->
-
 </navigation>

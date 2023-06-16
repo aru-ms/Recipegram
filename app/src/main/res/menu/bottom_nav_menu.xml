@@ -1,19 +1,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/action_home"
-        android:title="Home"
-        android:icon="@drawable/common_full_open_on_phone" />
+        android:title="Inicio"
+        android:icon="@drawable/home_screen" />
     <item
         android:id="@+id/action_profile"
-        android:title="Profile"
-        android:icon="@drawable/common_google_signin_btn_text_disabled" />
+        android:title="Perfil"
+        android:icon="@drawable/ic_profile" />
     <item
         android:id="@+id/action_upload"
-        android:title="Upload"
-        android:icon="@drawable/baseline_fastfood_24" />
+        android:title="Subir receta"
+        android:icon="@drawable/ic_upload" />
     <item
         android:id="@+id/action_search"
-        android:title="Search"
+        android:title="Buscar"
         android:icon="@drawable/ic_search"/>
-    <!-- Add more items for other bottom navigation destinations -->
 </menu>

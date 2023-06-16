@@ -17,3 +17,9 @@ m
 =app/src/main/java/com/alberto/recipegram/ui/UploadFragment.kt,d\4\d45490dcd0d10b360627a8fe030f73f40c032cfe
 u
 Eapp/src/main/java/com/alberto/recipegram/viewmodel/UploadViewModel.kt,4\e\4e2e61ff83b9f100af12f338dcb8433f5396b016
+m
+=app/src/main/java/com/alberto/recipegram/ui/SearchFragment.kt,e\1\e15c01513b40d44c714af75bfd6df72bd42dbc99
+P
+ app/src/main/AndroidManifest.xml,8\c\8c55c3ccc257e5907959013f99656e4c8ec3903e
+v
+Fapp/src/main/java/com/alberto/recipegram/viewmodel/ProfileViewModel.kt,6\6\667aa63dabb1ea7952500e5beed8fc6311286a24

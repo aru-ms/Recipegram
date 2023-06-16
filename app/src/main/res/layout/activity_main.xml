@@ -33,13 +33,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/login"
-        android:layout_marginTop="80dp"/>
+        android:layout_marginTop="80dp"
+        style="@style/AppButtonStyle"/>
 
     <Button
         android:id="@+id/signUpButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/signUp" />
+        android:layout_marginTop="20dp"
+        android:text="@string/signUp"
+        style="@style/AppButtonStyle"/>
 
     <TextView
         android:id="@+id/forgotPasswordTextView"
@@ -49,6 +52,8 @@
         android:gravity="center"
         android:padding="16dp"
         android:textStyle="italic"
-        android:clickable="true"/>
+        android:textColor="@color/brightOrange"
+        android:clickable="true"
+        android:focusable="true" />
 
 </LinearLayout>

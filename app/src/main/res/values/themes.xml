@@ -16,5 +16,6 @@
         <item name="android:textColorHint">@color/newBlack</item>
         <item name="colorControlActivated">@color/brightOrange</item>
         <item name="colorControlNormal">@color/brightOrange</item>
+        <item name="colorButtonNormal">@color/newWhite</item>
     </style>
 </resources>

@@ -5,13 +5,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context=".SearchFragment">
+    tools:context=".ui.SearchFragment">
 
     <EditText
         android:id="@+id/searchEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Search"
+        android:drawableLeft="@drawable/ic_search"
+        android:hint="@string/buscar_receta"
         android:imeOptions="actionSearch"
         android:inputType="text"
         android:maxLines="1"
