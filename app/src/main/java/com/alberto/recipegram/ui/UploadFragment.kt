@@ -14,10 +14,12 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.alberto.recipegram.R
 import com.alberto.recipegram.viewmodel.UploadViewModel
 
@@ -64,6 +66,17 @@ class UploadFragment : Fragment() {
             uploadRecipe()
         }
 
+        uploadViewModel.uploadSuccess.observe(viewLifecycleOwner) { isSuccess ->
+            if (isSuccess) {
+                Toast.makeText(
+                    requireContext(),
+                    "La receta se ha añadido correctamente",
+                    Toast.LENGTH_SHORT
+                ).show()
+                findNavController().navigate(R.id.homeFragment)
+            }
+        }
+
         return view
     }
 
@@ -102,6 +115,7 @@ class UploadFragment : Fragment() {
                         recipeImageBitmap =
                             MediaStore.Images.Media.getBitmap(requireContext().contentResolver, uri)
                         recipeImageView.setImageBitmap(recipeImageBitmap)
+
                     }
                 }
                 REQUEST_IMAGE_CAPTURE -> {

@@ -59,7 +59,7 @@ class SignUpViewModel : ViewModel() {
                         .addOnSuccessListener {
                             saveProfileImageToFirestore(userId, profileImageBytes) { photoUrl ->
                                 if (photoUrl != null) {
-                                    userDocRef.update("photoURL", photoUrl)
+                                    userDocRef.update("photoUrl", photoUrl)
                                         .addOnSuccessListener {
                                             sendEmailVerification(user)
                                         }

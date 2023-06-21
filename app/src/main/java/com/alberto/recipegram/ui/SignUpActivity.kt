@@ -57,11 +57,11 @@ class SignUpActivity : AppCompatActivity() {
 
         viewModel.signUpSuccess.observe(this, Observer { success ->
             if (success) {
-                Toast.makeText(this, "Sign up successful. Verification email sent", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Te has registrado correctamente, verifica tu e-mail", Toast.LENGTH_SHORT).show()
                 startActivity(Intent(this, MainActivity::class.java))
                 finish()
             } else {
-                Toast.makeText(this, "Sign up failed", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Ha fallado el registro, comprueba que todos los campos están rellenados", Toast.LENGTH_SHORT).show()
             }
         })
     }

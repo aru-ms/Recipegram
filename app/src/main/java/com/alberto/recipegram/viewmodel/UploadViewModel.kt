@@ -2,6 +2,8 @@ package com.alberto.recipegram.viewmodel
 
 import android.graphics.Bitmap
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
@@ -15,6 +17,8 @@ class UploadViewModel : ViewModel() {
     private val firestore: FirebaseFirestore by lazy {
         FirebaseFirestore.getInstance()
     }
+    private val _uploadSuccess = MutableLiveData<Boolean>()
+    val uploadSuccess: LiveData<Boolean> get() = _uploadSuccess
 
     fun uploadRecipe(
         recipeName: String,
@@ -66,6 +70,7 @@ class UploadViewModel : ViewModel() {
                                     "RecipeUploadViewModel",
                                     "Recipe uploaded successfully! Document ID: ${documentReference.id}"
                                 )
+                                _uploadSuccess.value = true
                             }
                             .addOnFailureListener { e ->
                                 Log.e("RecipeUploadViewModel", "Recipe upload failed", e)
